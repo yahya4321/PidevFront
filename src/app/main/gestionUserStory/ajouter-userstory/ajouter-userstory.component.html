@@ -1,0 +1,31 @@
+<form [formGroup]="userStoryForm" (ngSubmit)="onSubmit()">
+
+  <h4 style="color: rgb(110, 48, 218);" class="card-title mb-4">Formulaire d'ajout de UserStory:</h4>
+
+    <div class="form-group">
+      <label for="titre_US">Titre de la User Story</label>
+      <input type="text" id="titre_US" class="form-control" formControlName="titre_US">
+    </div>
+    <div class="form-group">
+      <label for="description_US">Description de la User Story</label>
+      <textarea id="description_US" class="form-control" formControlName="description_US"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="statut_US">Statut de la User Story</label>
+      <select id="statut_US" class="form-control" formControlName="statut_US">
+        <option *ngFor="let statut of statutList" [value]="statut">{{ statut }}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="velocite_US">Vélocité de la User Story</label>
+      <input type="number" id="velocite_US" class="form-control" formControlName="velocite_US">
+    </div>
+    <div class="form-group">
+      <label for="sprintBacklog">Sprint Backlog</label>
+      <select id="sprintBacklog" class="form-control" formControlName="sprintBacklog">
+        <option *ngFor="let backlog of sprintBacklogs" [value]="backlog.idSprintBacklog">{{ backlog.nomBacklog }}</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter User Story</button>
+  </form>
+  

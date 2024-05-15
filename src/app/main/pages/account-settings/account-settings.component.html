@@ -1,0 +1,315 @@
+<div class="content-body">
+  <!-- content-header component -->
+  <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+  <!-- account setting page -->
+  <section id="page-account-settings">
+    <div class="row nav-vertical d-flex">
+      <div class="col-md-3 mb-2 mb-md-0">
+        <ul ngbNav #navVertical="ngbNav" class="nav nav-pills flex-column nav-left">
+          <li class="nav-item" ngbNavItem>
+            <a
+              ngbNavLink
+              class="nav-link d-flex py-75"
+              id="account-pill-general"
+              data-toggle="pill"
+              href="#account-vertical-general"
+              aria-expanded="true"
+            >
+              <i data-feather="user" class="font-medium-3 mr-1"></i>
+              <span class="font-weight-bold">General</span>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <!-- header media -->
+                  <div class="media">
+                    <a href="javascript:void(0);" class="mr-25">
+                      <img [src]="avatarImage" class="rounded mr-50" alt="profile image" height="76" width="80" />
+                    </a>
+                    <!-- upload and reset button -->
+                    <div class="media-body mt-75 ml-1">
+                      <button
+                        (click)="file.click()"
+                        for="account-upload"
+                        class="btn btn-sm btn-primary mb-75 mr-75"
+                        rippleEffect
+                      >
+                        Upload
+                      </button>
+                      <input
+                        type="file"
+                        #file
+                        id="account-upload"
+                        hidden
+                        accept="image/*"
+                        (change)="uploadImage($event)"
+                      />
+                      <button class="btn btn-sm btn-outline-secondary mb-75" rippleEffect>Reset</button>
+                      <p>Allowed JPG, GIF or PNG. Max size of 800kB</p>
+                    </div>
+                    <!--/ upload and reset button -->
+                  </div>
+                  <!--/ header media -->
+
+                  <form class="validate-form mt-2" [formGroup]="userForm" (ngSubmit)="updateUser(userForm)">
+                    <div class="row">
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-username">Nom</label>
+                          <input type="text"  formControlName="nom" class="form-control" id="account-username" placeholder="Nom" />
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-name">Prénom</label>
+                          <input type="text" formControlName="prenom" class="form-control" id="account-name" placeholder="Prénom" />
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-e-mail">E-mail</label>
+                          <input type="email" formControlName="email" class="form-control" id="account-e-mail" placeholder="Email" />
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-company">Téléphone</label>
+                          <input type="text" formControlName="tel" class="form-control" id="account-company" placeholder="Téléphone" />
+                        </div>
+                      </div>
+                      
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary mt-2 mr-1" rippleEffect>Save changes</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-2" rippleEffect>Cancel</button>
+                      </div>
+                    </div>
+                  </form>
+                  
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          <li class="nav-item" ngbNavItem>
+            <a
+              ngbNavLink
+              class="nav-link d-flex py-75"
+              id="account-pill-password"
+              data-toggle="pill"
+              href="#account-vertical-password"
+              aria-expanded="false"
+            >
+              <i data-feather="lock" class="font-medium-3 mr-1"></i>
+              <span class="font-weight-bold">Change Password</span>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <!-- form -->
+                  <form class="validate-form"  [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-old-password">Old Password</label>
+                          <div class="input-group form-password-toggle input-group-merge">
+                            <input
+                              [type]="passwordTextTypeOld ? 'text' : 'password'"
+                              class="form-control"
+                              id="account-old-password"
+                              name="password"
+                              placeholder="Old Password"
+                              formControlName="currentPassword"
+
+                            />
+                            <div class="input-group-append">
+                              <span class="input-group-text cursor-pointer"
+                                ><i
+                                  class="feather font-small-4"
+                                  [ngClass]="{
+                                    'icon-eye-off': passwordTextTypeOld,
+                                    'icon-eye': !passwordTextTypeOld
+                                  }"
+                                  (click)="togglePasswordTextTypeOld()"
+                                ></i
+                              ></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-new-password">New Password</label>
+                          <div class="input-group form-password-toggle input-group-merge">
+                            <input
+                              [type]="passwordTextTypeNew ? 'text' : 'password'"
+                              id="account-new-password"
+                              name="new-password"
+                              class="form-control"
+                              placeholder="New Password"
+                              formControlName="newPassword"
+
+                            />
+                            <div class="input-group-append">
+                              <span class="input-group-text cursor-pointer"
+                                ><i
+                                  class="feather font-small-4"
+                                  [ngClass]="{
+                                    'icon-eye-off': passwordTextTypeNew,
+                                    'icon-eye': !passwordTextTypeNew
+                                  }"
+                                  (click)="togglePasswordTextTypeNew()"
+                                ></i
+                              ></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                          <label for="account-retype-new-password">Retype New Password</label>
+                          <div class="input-group form-password-toggle input-group-merge">
+                            <input
+                              [type]="passwordTextTypeRetype ? 'text' : 'password'"
+                              class="form-control"
+                              id="account-retype-new-password"
+                              name="confirm-new-password"
+                              placeholder="New Password"
+                              formControlName="confirmationPassword"
+
+                            />
+                            <div class="input-group-append">
+                              <span class="input-group-text cursor-pointer"
+                                ><i
+                                  class="feather font-small-4"
+                                  [ngClass]="{
+                                    'icon-eye-off': passwordTextTypeRetype,
+                                    'icon-eye': !passwordTextTypeRetype
+                                  }"
+                                  (click)="togglePasswordTextTypeRetype()"
+                                ></i
+                              ></span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <button type="submit" class="btn btn-primary mr-1 mt-1" rippleEffect>Save changes</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-1" rippleEffect>Cancel</button>
+                      </div>
+                    </div>
+                  </form>
+                  <!--/ form -->
+                </div>
+              </div>
+            </ng-template>
+          </li>
+          
+
+          <li class="nav-item" ngbNavItem>
+            <a
+              ngbNavLink
+              class="nav-link d-flex py-75"
+              id="account-pill-notifications"
+              data-toggle="pill"
+              href="#account-vertical-notifications"
+              aria-expanded="false"
+            >
+              <i data-feather="bell" class="font-medium-3 mr-1"></i>
+              <span class="font-weight-bold">Notifications</span>
+            </a>
+            <ng-template ngbNavContent>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <h6 class="section-label mx-1 mb-2">Activity</h6>
+                    <div class="col-12 mb-2">
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="data.accountSetting.notification.commentOnArticle"
+                          id="accountSwitch1"
+                        />
+                        <label class="custom-control-label" for="accountSwitch1">
+                          Email me when someone comments onmy article
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="data.accountSetting.notification.AnswerOnForm"
+                          id="accountSwitch2"
+                        />
+                        <label class="custom-control-label" for="accountSwitch2">
+                          Email me when someone answers on my form
+                        </label>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="data.accountSetting.notification.followMe"
+                          id="accountSwitch3"
+                        />
+                        <label class="custom-control-label" for="accountSwitch3"
+                          >Email me hen someone follows me</label
+                        >
+                      </div>
+                    </div>
+                    <h6 class="section-label mx-1 mt-2">Application</h6>
+                    <div class="col-12 mt-1 mb-2">
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="data.accountSetting.notification.newAnnouncements"
+                          id="accountSwitch4"
+                        />
+                        <label class="custom-control-label" for="accountSwitch4">News and announcements</label>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-2">
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="data.accountSetting.notification.productUpdates"
+                          id="accountSwitch6"
+                        />
+                        <label class="custom-control-label" for="accountSwitch6">Weekly product updates</label>
+                      </div>
+                    </div>
+                    <div class="col-12 mb-75">
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [checked]="data.accountSetting.notification.blogDigest"
+                          id="accountSwitch5"
+                        />
+                        <label class="custom-control-label" for="accountSwitch5">Weekly blog digest</label>
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button type="submit" class="btn btn-primary mt-2 mr-1" rippleEffect>Save changes</button>
+                      <button type="reset" class="btn btn-outline-secondary mt-2" rippleEffect>Cancel</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </li>
+        </ul>
+      </div>
+      <div [ngbNavOutlet]="navVertical" class="col-12 col-md-9"></div>
+    </div>
+  </section>
+  <!--/ account setting page -->
+</div>

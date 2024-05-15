@@ -1,0 +1,64 @@
+
+  <div class="success-message-panel" *ngIf="message">
+    <div class="success-icon">&#10004;</div>
+    <div class="success-message">{{message}}</div>
+  </div>
+
+  <h2>Register</h2>
+  <form>
+    <div class="form-group">
+      <label for="firstname">First name</label>
+      <input
+        id="firstname"
+        name="firstname"
+        required type="text"
+        [(ngModel)]="registerRequest.nom"
+      >
+    </div>
+    <div class="form-group">
+      <label for="lastname">Last name</label>
+      <input
+        id="lastname"
+        name="lastname"
+        required type="text"
+        [(ngModel)]="registerRequest.prenom"
+      >
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        id="email"
+        name="email"
+        required type="text"
+        [(ngModel)]="registerRequest.email"
+      >
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input
+        id="password"
+        name="password"
+        required type="password"
+        [(ngModel)]="registerRequest.password"
+      >
+    </div>
+    <div>
+      <label for="role">Rôle:</label>
+      <select id="role" name="role" [(ngModel)]="registerRequest.role" required>
+        <option value="Admin">Admin</option>
+        <option value="ProductOwner">Product Owner</option>
+        <option value="ScrumMaster">Scrum Master</option>
+        <option value="developer">Developer</option>
+      </select>
+    </div>
+    
+      
+    <button type="submit">Register</button>
+    <a routerLink="/login">Login</a>
+  </form>
+
+
+
+  
+ 
+  

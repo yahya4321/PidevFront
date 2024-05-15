@@ -1,0 +1,42 @@
+<div class="container">
+  <h2 class="mb-4">Ajouter une Tâche Technique</h2>
+  <div *ngIf="TacheTechniqueAddedSuccessfully" class="alert alert-success mb-3">
+    Tâche technique ajoutée avec succès !
+  </div>
+  <form [formGroup]="tacheTechniqueForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
+    <div class="form-group">
+      <label for="nomTacheTechnique">Nom de la Tâche Technique :</label>
+      <input type="text" class="form-control" id="nomTacheTechnique" formControlName="nomTacheTechnique" required>
+      <div class="invalid-feedback">Veuillez saisir le nom de la tâche technique.</div>
+    </div>
+    <div class="form-group">
+      <label for="descriptionTacheTechnique">Description :</label>
+      <textarea class="form-control" id="descriptionTacheTechnique" formControlName="descriptionTacheTechnique" required></textarea>
+      <div class="invalid-feedback">Veuillez saisir la description de la tâche technique.</div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="statut_TT">Statut :</label>
+        <select class="form-control" id="statut_TT" formControlName="statut_TT" required>
+          <option *ngFor="let statut of statutsTacheTechnique" [value]="statut">{{ statut }}</option>
+        </select>
+        <div class="invalid-feedback">Veuillez sélectionner le statut de la tâche technique.</div>
+      </div>
+      <div class="form-group col-md-6">
+        <label for="userStory">User Story :</label>
+        <select id="userStory" formControlName="userStory" class="form-control" required>
+          <option *ngFor="let story of userStories" [value]="story.idUserStory">{{ story.titre_US }}</option>
+        </select>
+        <div class="invalid-feedback">Veuillez sélectionner une User Story.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="idUser">Développeur :</label>
+      <select id="idUser" formControlName="idUser" class="form-control" required>
+        <option *ngFor="let user of users" [value]="user.idUser">{{ user.nom }} {{ user.prenom }}</option>
+      </select>
+      <div class="invalid-feedback">Veuillez sélectionner un utilisateur.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+  </form>
+</div>
